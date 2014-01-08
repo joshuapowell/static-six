@@ -7,7 +7,9 @@ A minimal static site generator to get you started building sites with the Commo
 
 ## Getting setup for the first time
 
-Before you get started using the CommonsCloudStatic site generator you'll need to ensure that a few things are installed on your machine.
+Before you get started using the CommonsCloud Static Site Generator you should create a duplicate of the repository, not a fork. [See Github's instructions on duplicating a repository](https://help.github.com/articles/duplicating-a-repository)
+
+To get started using the CommonsCloud Static Site Generator you'll need to ensure that a few things are installed on your machine.
 
 1. We'll install a Virtual Enviornment so that the things we do, don't affect your system
 
