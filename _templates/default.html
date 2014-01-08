@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <meta name="robots" content="{% if page.robots %}{{ page.robots }}{% else: %}{{ 'index,follow,archive' }}{% endif %}" />
+
+    <meta name="google-site-verification" content="{{ google_site_verification }}" />
+
+    <meta name="author" content="{{ page.page_author }}" />
+    <meta name="description" content="{{ page.page_description }}" />
+
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:title" content="{{ page.title }}" />
+    <meta property="twitter:url" content="{{ page.permalink }}" />
+
+    <meta name="author" content="{{ page.page_author }}" />
+    <meta name="description" content="{{ page.page_description }}" />
+
+    <meta property="og:site_name" content="{{ site_name }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ page.path }}" />
+    <meta property="og:title" content="{{ page.title }}" />
+
+    <meta name="dcterms.type" content="Text" />
+    <meta name="dcterms.identifier" content="{{ page.path }}" />
+    <meta name="dcterms.format" content="text/html" />
+    <meta name="dcterms.title" content="{{ page.title }}" />
+
+    <meta name="fragment" content="!" />
+    <base href="/" />
+
+    <title>{{ page.title }}</title>
+    
+    <!-- Commons Cloud -->
+    <link href="/static/css/application.css" rel="stylesheet" type="text/css" />
+
+  </head>
+
+  <body class="{{ page.page_class }}">
+
+    <!--Site Header-->    
+    <header class="site-header"></header>
+    
+    <main role="content" class="site-content">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer role="complementary" class="site-footer"></footer>
+    
+  </body>
+
+</html>

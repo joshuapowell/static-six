@@ -1,0 +1,34 @@
+--- venv/lib/python2.7/site-packages/flask_flatpages/__init__.py	2014-01-07 15:40:56.000000000 -0500
++++ __init__.py	2014-01-07 15:41:32.000000000 -0500
+@@ -93,6 +93,7 @@
+         :param html_renderer: HTML renderer function.
+         """
+         #: Path this pages was obtained from, as in ``pages.get(path)``.
++        print 'looking for ' + path
+         self.path = path
+         #: Content of the pages.
+         self._meta_yaml = meta_yaml
+@@ -281,8 +282,14 @@
+                 elif name.endswith(extension):
+                     name_without_extension = name[:-len(extension)]
+                     path = u'/'.join(path_prefix + (name_without_extension, ))
+-                    pages[path] = self._load_file(path, full_name)
+-
++                    this_page = self._load_file(path, full_name)
++                    if (this_page['permalink']):
++                      this_path = this_page['permalink']
++                    else:
++                      this_path = 'index.html'
++                    pages[this_path] = self._load_file(path, full_name)
++                    # print 'Generating > ' + this_path
++                    
+         extension = self.config('extension')
+         pages = {}
+ 
+@@ -342,4 +349,4 @@
+                 'HTML renderer function {!r} not supported by Flask-FlatPages,'
+                 ' wrong number of arguments.'.format(html_renderer)
+             )
+-        return wrapper
++        return wrapper
+\ No newline at end of file
