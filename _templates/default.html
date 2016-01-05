@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
+
     <meta name="robots" content="{% if page.robots %}{{ page.robots }}{% else: %}{{ 'index,follow,archive' }}{% endif %}" />
 
     <meta name="google-site-verification" content="{{ google_site_verification }}" />
@@ -38,7 +38,7 @@
     <base href="/" />
 
     <title>{{ page.title }}</title>
-    
+
     <!-- Commons Cloud -->
     <link href="/static/css/application.css" rel="stylesheet" type="text/css" />
 
@@ -46,15 +46,20 @@
 
   <body class="{{ page.page_class }}">
 
-    <!--Site Header-->    
+    <!-- Site Header-->
     <header class="site-header"></header>
-    
+    <!-- End Site Header-->
+
+    <!-- Site Content-->
     <main role="content" class="site-content">
       {% block content %}{% endblock %}
     </main>
+    <!-- End Site Content-->
 
+    <!-- Site Footer -->
     <footer role="complementary" class="site-footer"></footer>
-    
+    <!-- End Site Footer -->
+
   </body>
 
 </html>
