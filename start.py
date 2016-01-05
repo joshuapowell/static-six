@@ -24,22 +24,22 @@ from flask.ext.flatpages import FlatPages
 """
 Define our application variable
 """
-commonscloudstatic = Flask(__name__, template_folder='_templates')
+app = Flask(__name__, template_folder='_templates')
 
 """
 Load our configuration
 """
-commonscloudstatic.config.from_object('constants')
+app.config.from_object('constants')
 
 
-pages = FlatPages(commonscloudstatic)
-cube = Freezer(commonscloudstatic)
+pages = FlatPages(app)
+cube = Freezer(app)
 
 
 """
 Front page
 """
-@commonscloudstatic.route('/')
+@app.route('/')
 def index():
     page = pages.get_or_404('index')
     return render_template('index.html', page=page, pages=pages)
@@ -48,7 +48,7 @@ def index():
 """
 Other pages
 """
-@commonscloudstatic.route('/<path:path>/')
+@app.route('/<path:path>/')
 def page(path):
     page = pages.get_or_404(path)
     template = page.meta.get('template', 'page.html')
@@ -87,4 +87,4 @@ if __name__ == "__main__":
     elif len(sys.argv) > 1 and sys.argv[1] == "build":
         cube.freeze()
     else:
-        commonscloudstatic.run(port=commonscloudstatic.config['PORT'])
+        app.run(port=app.config['PORT'])
