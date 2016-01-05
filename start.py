@@ -1,12 +1,22 @@
 """
-Copyright 2013 Viable Industries, L.L.C., All rights reserved.
-"""
+
+  start.py
+  StaticVI::Core
+
+  Created by Viable Industries, L.L.C. on 01/05/2016.
+  Copyright (c) 2011-2016 Viable Industries, L.L.C. All rights reserved.
 
 """
-System Dependencies
-"""
-import os, sys, itertools, logging
-from flask import Flask, render_template
+
+
+import os
+import sys
+import itertools
+import logging
+
+from flask import Flask
+from flask import render_template
+
 from flask_frozen import Freezer
 from flask.ext.flatpages import FlatPages
 
@@ -65,13 +75,13 @@ if __name__ == "__main__":
         Your Virtual Environment or virtualenv has not been activated.
 
         To use this application, please activate it by executing:
-        
+
           source venv/bin/activate
-          
+
         If the problem persists, ensure that virtualenv is installed:
-        
+
           pip install virtualenv
-          
+
         and that all other requirements have been satisfied.
         """)
     elif len(sys.argv) > 1 and sys.argv[1] == "build":
