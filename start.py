@@ -1,92 +1,71 @@
-"""
-
-  start.py
-  StaticVI::Core
-
-  Created by Viable Industries, L.L.C. on 01/05/2016.
-  Copyright (c) 2011-2016 Viable Industries, L.L.C. All rights reserved.
+#!/usr/bin/env python
 
 """
 
+    start.py
+    FieldStack::ApplicationRunner
 
-import os
-import sys
-import itertools
-import logging
+    Created by Viable Industries, L.L.C. on 01/05/2016.
+    Copyright (c) 2011-2016 Viable Industries, L.L.C. All rights reserved.
 
-from flask import Flask
-from flask import render_template
+    For license and copyright information please see the LICENSE document (the
+    "License") included with this software package. This file may not be used
+    in any manner except in compliance with the License unless required by
+    applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    CONDITIONS OF ANY KIND, either express or implied.
 
-from flask_frozen import Freezer
-from flask.ext.flatpages import FlatPages
-
-
-"""
-Define our application variable
-"""
-app = Flask(__name__, template_folder='_templates')
+    See the License for the specific language governing permissions and
+    limitations under the License.
 
 """
-Load our configuration
-"""
-app.config.from_object('constants')
 
+from src import application
+from src import arguments as args
 
-pages = FlatPages(app)
-cube = Freezer(app)
+from flask import jsonify
 
-
-"""
-Front page
-"""
-@app.route('/')
-def index():
-    page = pages.get_or_404('index')
-    return render_template('index.html', page=page, pages=pages)
-
-
-"""
-Other pages
-"""
-@app.route('/<path:path>/')
-def page(path):
-    page = pages.get_or_404(path)
-    template = page.meta.get('template', 'page.html')
-    return render_template(template, page=page, pages=pages);
-
-
-"""
-URL Generator for pages
-"""
-@cube.register_generator
-def page():
-    for page in pages:
-      yield {
-        'path': page['path']
-      }
-
-"""
-Check to ensure that the application is loaded through
-a virtual enviornment. If it is not, prompt the user
-to either install a virtual enviornment or activate
-the one with the applciation.
-"""
 if __name__ == "__main__":
-    if "VIRTUAL_ENV" not in os.environ:
-        print("""
-        Your Virtual Environment or virtualenv has not been activated.
 
-        To use this application, please activate it by executing:
+    """Instantiate the Application Arguments
 
-          source venv/bin/activate
+    Setup the Application Arguments in order to pass user defined command
+    line interface arguments to the Application
 
-        If the problem persists, ensure that virtualenv is installed:
+    @param None
+    """
+    arguments = args.Arguments()
 
-          pip install virtualenv
+    """Instantiate the Application
 
-        and that all other requirements have been satisfied.
-        """)
-    elif len(sys.argv) > 1 and sys.argv[1] == "build":
-        cube.freeze()
-    else:
-        app.run(port=app.config['PORT'])
+    Setup the basic Application class in order to instantiate the rest of
+    the Application
+
+    @param (str) name
+        The name of the Application
+    @param (str) envioronment
+        The desired environment configuration to start the application on
+    """
+    instance = application.Application(
+        name=__name__,
+        environment=arguments.args.environment
+    )
+
+    """Run the application
+
+    Run the application with the given variables
+
+    @param (str) host
+        The hostname to listen on
+    @param (int) port
+        The port of the webserver
+    @param (bool) debug
+        Enable or disable debug mode
+    @param (dict) **options
+        Options to be forwarded to the underlying Werkzeug server
+
+    @see http://werkzeug.pocoo.org/docs/0.11/serving/\
+            #werkzeug.serving.run_simple
+    """
+    instance.app.run(host=arguments.args.host, port=arguments.args.port,
+                     debug=arguments.args.host)
