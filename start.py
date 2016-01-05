@@ -61,7 +61,9 @@ URL Generator for pages
 @cube.register_generator
 def page():
     for page in pages:
-      yield {'path': page['permalink']}
+      yield {
+        'path': page['path']
+      }
 
 """
 Check to ensure that the application is loaded through
