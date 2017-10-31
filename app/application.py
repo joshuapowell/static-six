@@ -52,7 +52,7 @@ class Application(object):
         """
         app = flask.Flask(__name__, static_path='/static')
         self.app = app
-        logger.info('Starting application named `%s`' % __name__)
+        logger.info('Starting StaticVI')
 
         """Import all custom app configurations
         """
@@ -72,17 +72,34 @@ class Application(object):
 
         """Load system modules
         """
-        self.load_modules(app)
+        self.generate_pages(app)
 
+        """Freeze all files if this is the build environment.
+        """
         if 'build' in environment:
             cube.freeze()
 
-        logger.info('Application loading configuration from %s', _config)
+        logger.info('StaticVI completed loading')
 
-    def load_modules(self, app):
+    def generate_pages(self, app):
+        """Generate site pages.
+
+        Create an index and other pages from the `pages` directory.
+
+        :param (class) self
+            The representation of the instantiated Class Instance
+        :param (str) app
+            The application object to attach the routes to
+        """
+        logger.info('StaticVI generating static index and user-named pages')
 
         @app.route('/', methods=['GET'])
         def core_index_get():
+            """Index page.
+
+            :return (object) render_template
+                A dynamically rendered HTML page.
+            """
 
             page = pages.get_or_404('index')
 
@@ -92,6 +109,11 @@ class Application(object):
 
         @app.route('/<path:path>/', methods=['GET'])
         def core_page_get(path):
+            """Dynamically routed (you-name-it) pages.
+
+            :return (object) render_template
+                A dynamically rendered HTML page.
+            """
 
             page = pages.get_or_404(path)
 
@@ -101,5 +123,15 @@ class Application(object):
 
         @cube.register_generator
         def core_page_get():
+            """URL Generator.
+
+            Freeze pages from these routes when building static pages to the
+            static `build` directory.
+
+            See official Frozen Flask documentation for more information.
+            http://pythonhosted.org/Frozen-Flask/#url-generators
+            """
             for page in pages:
+                logger.info('StaticVI creating static page for %s',
+                            page['path'])
                 yield {'path': page['path']}
