@@ -1,7 +1,7 @@
 # StaticVI (Static Six)
 
-A flexible, Python based static site generator to assist in your site building
-and application prototyping projects.
+Static VI is a minimal static site generator to you started building websites 
+and application prototypes.
 
 ## Getting setup for the first time
 
