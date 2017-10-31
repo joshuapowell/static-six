@@ -71,69 +71,44 @@ class Application(object):
         """
         self.app.config.from_json(_config)
 
+        """Setup flat page generation.
+        """
         pages.init_app(self.app)
+
+        """Configure ability to freeze pages.
+        """
         cube.init_app(self.app)
 
         """Load system modules
         """
-        self.load_modules()
+        self.load_modules(app)
 
         if 'build' in environment:
             cube.freeze()
 
         logger.info('Application loading configuration from %s', _config)
 
-    def load_modules(self):
-        """Load all application modules.
+    def load_modules(self, app):
 
-        Open the module path defined in the configuration, for each module
-        directory found in the defined module path we need to `load_module`,
-        and create a Flask Blueprint with the module information.
+        @app.route('/', methods=['GET'])
+        def core_index_get():
 
-        :param (object) self
-            the current class (i.e., Application)
-        """
-        logger.info('Application beginning to load modules')
+            page = pages.get_or_404('index')
 
-        modules_path = self.app.config['MODULE_PATH']
-        modules_directory = os.listdir(modules_path)
+            template = page.meta.get('template', 'page.html')
 
-        modules_list = {}
+            return render_template(template, page=page)
 
-        for module_name in modules_directory:
+        @app.route('/<path:path>/', methods=['GET'])
+        def core_page_get(path):
 
-            module_path = os.path.join(modules_path, module_name)
-            module_package = os.path.join(modules_path, module_name,
-                                          '__init__.py')
+            page = pages.get_or_404(path)
 
-            if os.path.isdir(module_path):
+            template = page.meta.get('template', 'page.html')
 
-                """Locate and load the module into our module_list
-                """
-                try:
-                    f, filename, descr = imp.find_module(module_name,
-                                                         [modules_path])
-                    modules_list[module_name] = imp.load_module(module_name,
-                                                                f, filename,
-                                                                descr)
-                except ImportError:
-                    logger.error('`load_modules` was unable to locate the'
-                                 '`__init__.py` file in your %s module' %
-                                 (module_name))
-                    raise
+            return render_template(template, page=page)
 
-                """Register this module with the application as a blueprint
-
-                See the official Flask API for more information about Blueprint
-                http://flask.pocoo.org/docs/0.10/api/#flask.Flask.register_blueprint
-                """
-                if hasattr(modules_list[module_name], 'module'):
-                    module_blueprint = modules_list[module_name].module
-                    self.app.register_blueprint(module_blueprint)
-
-                    logger.info('Application successfully loaded `%s` module' %
-                                (module_name))
-
-                else:
-                    logger.error('Application failed to load `%s` module' %
-                                 (module_name))
+        @cube.register_generator
+        def core_page_get():
+            for page in pages:
+                yield {'path': page['path']}
