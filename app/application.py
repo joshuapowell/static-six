@@ -79,6 +79,11 @@ class Application(object):
         self.load_modules()
 
         if build:
+            @cube.register_generator
+            def core_build_get():
+                yield '/about.html'
+                yield '/index'
+
             cube.freeze()
 
         logger.info('Application loading configuration from %s', _config)
