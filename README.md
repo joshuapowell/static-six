@@ -11,7 +11,6 @@ Before you get started using StaticVI you should create a duplicate of the repos
 To get started using StaticVI you'll need to ensure that a few things are installed on your machine.
 
 1. We'll install a Virtual Environment so that the things we do, don't affect your system
-
 ```
     virtualenv venv
 ```
@@ -23,20 +22,11 @@ To get started using StaticVI you'll need to ensure that a few things are instal
 ```
     pip install -r requirements.txt
 ```
-4. Once our requirements are installed, we need to patch one of the packages to work according to our liking, so first we deactivate the Virtual Environment temporarily
+4. Start up the local server
 ```
-    deactivate
-
-    cd venv/lib/python2.7/site-packages/flask_flatpages/
-
-    patch < ../../../../../patch/__init__.patch
+    python runserver.py --environment="development"
 ```
-5. Finally we can change back to the project root and restart our virtual enviornment
+5. Or Build the static site
 ```
-    cd ../../../../..
-    source venv/bin/activate
-```
-6. Start up the local server
-```
-    python start.py
+    python runserver.py --environment="build"
 ```
