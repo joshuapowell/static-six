@@ -21,9 +21,6 @@ import imp
 import os
 
 
-from datetime import datetime
-
-
 from . import cube
 from . import flask
 from . import logger
@@ -51,8 +48,6 @@ class Application(object):
         :param (class) app
             The Flask class for the application that was created
         """
-        logger.info('Application Started at %s', datetime.utcnow())
-
         self.name = name
         self.environment = environment
         self.extensions = extensions
