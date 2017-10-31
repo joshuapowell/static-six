@@ -10,7 +10,7 @@ Before you get started using StaticVI you should create a duplicate of the repos
 
 To get started using StaticVI you'll need to ensure that a few things are installed on your machine.
 
-1. We'll install a Virtual Enviornment so that the things we do, don't affect your system
+1. We'll install a Virtual Environment so that the things we do, don't affect your system
 
 ```
     virtualenv venv
@@ -31,7 +31,7 @@ To get started using StaticVI you'll need to ensure that a few things are instal
 
     patch < ../../../../../patch/__init__.patch
 ```
-5. Finally we can change back to the project root and restart our virtual enviornment 
+5. Finally we can change back to the project root and restart our virtual enviornment
 ```
     cd ../../../../..
     source venv/bin/activate

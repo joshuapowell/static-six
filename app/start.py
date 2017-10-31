@@ -65,13 +65,13 @@ if __name__ == "__main__":
         Your Virtual Environment or virtualenv has not been activated.
 
         To use this application, please activate it by executing:
-        
+
           source venv/bin/activate
-          
+
         If the problem persists, ensure that virtualenv is installed:
-        
+
           pip install virtualenv
-          
+
         and that all other requirements have been satisfied.
         """)
     elif len(sys.argv) > 1 and sys.argv[1] == "build":
