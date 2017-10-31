@@ -1,6 +1,4 @@
-template: index.html
 title: "Example Home Page"
-page_title: "CommonsCloud Static Site Generator and Development Server"
-path: /index
+date: 2012-03-04
 
 You're now running the CommonsCloud Static Site Generator and Development Server on your local computer.

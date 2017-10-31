@@ -70,10 +70,4 @@ class ApplicationCLI(object):
             'default': False
         })
 
-        self.parser.add_argument('--build', **{
-            'type': bool,
-            'help': 'create a build of the entire site (default: False)',
-            'default': False
-        })
-
         self.args = self.parser.parse_args()

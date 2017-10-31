@@ -36,7 +36,7 @@ from flask import render_template
 class Application(object):
     """Create Flask Application via a Class."""
 
-    def __init__(self, environment, name, build, app=None, extensions={}):
+    def __init__(self, environment, name, app=None, extensions={}):
         """Application Constructor.
 
         Setup our base Flask application, retaining it as our application
@@ -78,12 +78,7 @@ class Application(object):
         """
         self.load_modules()
 
-        if build:
-            @cube.register_generator
-            def core_build_get():
-                yield '/about.html'
-                yield '/index'
-
+        if 'build' in environment:
             cube.freeze()
 
         logger.info('Application loading configuration from %s', _config)

@@ -43,8 +43,7 @@ if __name__ == "__main__":
     """
     instance = application.Application(
         name=__name__,
-        environment=arguments.args.environment,
-        build=arguments.args.build
+        environment=arguments.args.environment
     )
 
     """Run the application.
