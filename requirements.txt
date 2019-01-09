@@ -1,5 +1,5 @@
 click==6.7
-Flask==0.12.2
+flask>=0.12.3
 Flask-FlatPages==0.6
 Frozen-Flask==0.15
 itsdangerous==0.24
@@ -9,7 +9,7 @@ MarkupSafe==1.0
 mimerender==0.6.0
 python-dateutil==2.6.1
 python-mimeparse==1.6.0
-PyYAML==3.12
+pyyaml>=4.2b1
 six==1.11.0
 SQLAlchemy==1.1.14
 Werkzeug==0.12.2
