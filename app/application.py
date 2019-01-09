@@ -50,7 +50,7 @@ class Application(object):
 
         """Create our base Flask application
         """
-        app = flask.Flask(__name__, static_path='/static')
+        app = flask.Flask(__name__, static_url_path='/static')
         self.app = app
         logger.info('Starting StaticVI')
 
