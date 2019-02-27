@@ -56,7 +56,7 @@ class Application(object):
 
         """Import all custom app configurations
         """
-        _config = ('config/%s.config') % (environment)
+        _config = ('config/%s.json') % (environment)
 
         """Read the JSON configuration file content.
         """
